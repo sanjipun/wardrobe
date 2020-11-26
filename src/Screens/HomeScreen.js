@@ -23,7 +23,7 @@ const HomeScreen = () => {
 			{loading ? (
 				<Loader />
 			) : error ? (
-				<Message>{error}</Message>
+				<Message severity='error'>{error}</Message>
 			) : (
 				<Grid container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 					{products.map((product, i) => {
