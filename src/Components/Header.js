@@ -1,12 +1,12 @@
 import { Menu, MenuItem } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { adminLogout } from '../Actions/AdminActions';
 import { logout } from '../Actions/UserActions';
 import NavItems from '../Files/NavItems';
-import LoginScreen from '../Screens/LoginScreen';
+import SearchBox from './SearchBox';
 
 const StyledHeader = styled.header`
 	display: flex;
@@ -84,7 +84,7 @@ const Header = ({ history }) => {
 					<Ul>
 						{NavItems.map((NavItem, index) => {
 							return (
-								<Link to={NavItem.link} style={{ textDecoration: 'none', color: 'white' }}>
+								<Link key={index} to={NavItem.link} style={{ textDecoration: 'none', color: 'white' }}>
 									<Li key={index}>
 										<i className={NavItem.icon} />
 										<p style={{ paddingLeft: 5 }}>{NavItem.title}</p>
@@ -94,6 +94,7 @@ const Header = ({ history }) => {
 						})}
 					</Ul>
 				</div>
+				<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} />
 				<div>
 					<Ul>
 						{adminInfo ? null : (

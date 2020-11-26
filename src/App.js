@@ -22,6 +22,7 @@ function App() {
 			<div className='App' style={{ fontFamily: 'Poppins', width: '80%', margin: 'auto' }}>
 				<StylesProvider injectFirst>
 					<Route path='/' exact component={HomeScreen} />
+					<Route path='/search/:keyword' component={HomeScreen} />
 					<Route path='/product/:id' component={ProductScreen} />
 					<Route path='/cart/:id?' component={CartScreen} />
 					<Route path='/login' component={LoginScreen} />

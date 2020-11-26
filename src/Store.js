@@ -6,6 +6,7 @@ import { AddProductReducer } from './Reducers/AddProductReducer';
 import { AddRatingReducer } from './Reducers/RatingReducer';
 import { AddCommentReducer } from './Reducers/AddCommentReducer';
 import { GetReviewReducer } from './Reducers/GetReviewReducer';
+import { GetRecommendationReducer } from './Reducers/RecommendationReducer';
 
 const { createStore, combineReducers, applyMiddleware } = require('redux');
 const { composeWithDevTools } = require('redux-devtools-extension');
@@ -24,6 +25,7 @@ const reducer = combineReducers({
 	addRating: AddRatingReducer,
 	addComment: AddCommentReducer,
 	getReview: GetReviewReducer,
+	getRecommendation: GetRecommendationReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];

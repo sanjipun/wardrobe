@@ -1,11 +1,17 @@
-import { Button, Grid, List, ListItem } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import { Button, FormControl, Grid, InputLabel, List, ListItem, MenuItem, Select } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Slider from 'react-slick';
 import { addToCart, removeFromCart } from '../Actions/CartActions';
+import { getRecommendations } from '../Actions/GetRecommendationAction';
 import Message from '../Components/Message';
+import './Slider.css';
 
 const CartScreen = ({ match, location, history }) => {
+	const [ localDateTime, setLocalDateTime ] = useState("2020-11-17 00:00:00");
+	const [ view, setView ] = useState('VIEW');
+
 	const productId = match.params.id;
 	const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
@@ -14,10 +20,14 @@ const CartScreen = ({ match, location, history }) => {
 	const cart = useSelector((state) => state.cart);
 	const { cartItems } = cart;
 
+	const getRecommendation = useSelector((state) => state.getRecommendation);
+	const { recommendations } = getRecommendation;
+
 	useEffect(
 		() => {
 			if (productId) {
 				dispatch(addToCart(productId, qty));
+				dispatch(getRecommendations(productId, localDateTime, view));	
 			}
 		},
 		[ dispatch, productId, qty ]
@@ -30,7 +40,18 @@ const CartScreen = ({ match, location, history }) => {
 	const removeHandler = (id) => {
 		dispatch(removeFromCart(id));
 	};
+	const settings = {
+		dots: true,
+		className: 'center',
+		infinite: true,
+		centerPadding: '60px',
+		slidesToShow: 4,
+		swipeToSlide: true,
 
+		afterChange: function(index) {
+			console.log(`Slider Changed to: ${index + 1}, background: #222; color: #bada55`);
+		},
+	};
 	return (
 		<div style={{ marginTop: 20 }}>
 			<Button variant='outlined' color='primary'>
@@ -63,36 +84,39 @@ const CartScreen = ({ match, location, history }) => {
 									<h3>Remove</h3>
 								</Grid>
 							</Grid>
-
-							{cartItems.map((item) => (
-								<Grid container>
-									<Grid item md={2} style={{ textAlign: 'center' }}>
-										<img
-											src={`data:image/jpeg;base64,${item.image}`}
-											alt={item.product}
-											style={{ height: 50, width: 'auto' }}
-										/>
-									</Grid>
-									<Grid item md={4} style={{ textAlign: 'center' }}>
-										{item.name}
-									</Grid>
-									<Grid item md={2} style={{ textAlign: 'center' }}>
-										Rs. {item.price}
-									</Grid>
-									<Grid item md={2} style={{ textAlign: 'center' }}>
-										{item.qty}
-									</Grid>
-									<Grid item md={2} style={{ textAlign: 'center' }}>
-										<Button
-											variant='contained'
-											color='secondary'
-											onClick={() => removeHandler(item.product)}
-										>
-											<i className='fas fa-trash' />
-										</Button>
-									</Grid>
-								</Grid>
-							))}
+							<List>
+								{cartItems.map((item) => (
+									<ListItem key={item.id}>
+										<Grid container>
+											<Grid item md={2} style={{ textAlign: 'center' }}>
+												<img
+													src={`data:image/jpeg;base64,${item.image}`}
+													alt={item.product}
+													style={{ height: 50, width: 'auto' }}
+												/>
+											</Grid>
+											<Grid item md={4} style={{ textAlign: 'center' }}>
+												{item.name}
+											</Grid>
+											<Grid item md={2} style={{ textAlign: 'center' }}>
+												Rs. {item.price}
+											</Grid>
+											<Grid item md={2} style={{ textAlign: 'center' }}>
+												{item.qty}
+											</Grid>
+											<Grid item md={2} style={{ textAlign: 'center' }}>
+												<Button
+													variant='contained'
+													color='secondary'
+													onClick={() => removeHandler(item.product)}
+												>
+													<i className='fas fa-trash' />
+												</Button>
+											</Grid>
+										</Grid>
+									</ListItem>
+								))}
+							</List>
 						</Grid>
 						<Grid item md={4}>
 							<List style={{ marginTop: -50 }}>
@@ -121,6 +145,43 @@ const CartScreen = ({ match, location, history }) => {
 							</List>
 						</Grid>
 					</Grid>
+					<Grid item md={12} style={{marginTop:50}}>
+						<h1>You may also Like</h1>
+							<Slider {...settings}>
+								{recommendations?.recommendedItemsList?.map((Example, index) => {
+									return (
+										<div key={index}>
+											<div style={{
+													display: 'flex',
+													justifyContent: 'center',
+													alignItems: 'center',												
+												}}>
+													<Link to={`/product/${Example.id}`}>
+											 <img
+											src={`data:image/jpeg;base64,${Example.img}`}
+											alt={Example.name}
+											style={{ height: 150, width: 'auto' }}
+										/>
+										</Link>
+										</div>
+										<Link to={`/product/${Example.id}`} style={{fontWeight:'bold', textDecoration:'none', color:'black'}}> 
+											<p
+												style={{
+													display: 'flex',
+													justifyContent: 'center',
+													alignItems: 'center',
+													color: 'black',
+													
+												}}
+											>
+												{Example.name}
+											</p>
+											</Link>
+										</div>
+									);
+								})}
+							</Slider>
+						</Grid>
 				</div>
 			)}
 		</div>
