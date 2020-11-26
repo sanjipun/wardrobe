@@ -63,7 +63,7 @@ const RegisterScreen = ({ history, location }) => {
 					<form className={classes.form} onSubmit={submitHandler} noValidate>
 						{error && <Message severity='error'>{error}</Message>}
 						{loading && <Loader />}
-						{userInfo ? <Message severity='success'>{userInfo.status}</Message> : 'Successfully Registered'}
+						{userInfo ? <Message severity='success'>{userInfo.status}</Message> : null}
 						<TextField
 							variant='outlined'
 							margin='normal'
