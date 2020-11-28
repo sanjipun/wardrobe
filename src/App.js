@@ -14,6 +14,7 @@ import AdminDashboard from './Screens/AdminDashboard';
 import UserList from './Screens/UserList';
 import ProductList from './Screens/ProductList';
 import AddProduct from './Screens/AddProduct';
+import FilterScreen from './Screens/FilterScreen';
 
 function App() {
 	return (
@@ -34,6 +35,7 @@ function App() {
 					<Route path='/userlist' component={UserList} />
 					<Route path='/productlist' component={ProductList} />
 					<Route path='/addproduct' component={AddProduct} />
+					<Route path='/filter/:category?:subcategory' component={FilterScreen} />
 				</StylesProvider>
 			</div>
 			<Footer />

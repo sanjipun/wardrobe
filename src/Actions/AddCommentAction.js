@@ -6,7 +6,7 @@ export const AddCommentAction = (productId, postComment) => async (dispatch, get
 		dispatch({
 			type: ADD_COMMENT_REQUEST,
 		});
-		console.log(postComment);
+
 		const { userLogin: { userInfo } } = getState();
 
 		const config = {

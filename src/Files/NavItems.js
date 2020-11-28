@@ -4,11 +4,7 @@ const NavItems = [
 		link: '/',
 		icon: 'fas fa-home',
 	},
-	{
-		title: 'Category',
-		link: '/categories',
-		icon: 'fas fa-bars',
-	},
+
 	{
 		title: 'About us',
 		link: '/about',

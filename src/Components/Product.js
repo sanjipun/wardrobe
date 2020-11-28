@@ -65,14 +65,14 @@ const Product = ({ product }) => {
 					>
 						Category: {product.category}
 					</ParagraphStyle>
-					<ParagraphStyle
+					<div
 						style={{
 							width: '96% ',
 							margin: 'auto ',
 						}}
 					>
 						<Rating value={product.rating.rating} />
-					</ParagraphStyle>
+					</div>
 				</Link>
 			</Card>
 		</div>

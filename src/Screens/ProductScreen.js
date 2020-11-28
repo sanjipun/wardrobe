@@ -1,4 +1,5 @@
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { SettingsSystemDaydreamRounded } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -6,6 +7,7 @@ import Slider from 'react-slick';
 import styled from 'styled-components';
 import { AddCommentAction } from '../Actions/AddCommentAction';
 import { AddRatingAction } from '../Actions/AddRatingAction';
+import { AddToCart } from '../Actions/AddToCartAction';
 import { getRecommendations } from '../Actions/GetRecommendationAction';
 import { getReviews } from '../Actions/GetReviewAction';
 import { listDetails } from '../Actions/ProductActions';
@@ -32,6 +34,7 @@ const StyledButton = styled(Button)`
 `;
 
 const ProductScreen = ({ history, match }) => {
+	const [added, setAdded] = useState(false);
 	const [ qty, setQty ] = useState(1);
 	const [ rating, setRating ] = useState(5);
 	const [ comment, setComment ] = useState('Enter comment');
@@ -49,11 +52,17 @@ const ProductScreen = ({ history, match }) => {
 	const getRecommendation = useSelector((state) => state.getRecommendation);
 	const { recommendations } = getRecommendation;
 
+	const userLogin = useSelector((state) => state.userLogin);
+	const { userInfo } = userLogin;
+
 	const addRating = useSelector((state) => state.addRating);
 	const { id: ratingresponse } = addRating;
 
 	const addComment = useSelector((state) => state.addComment);
 	const { comment: commentresponse } = addComment;
+
+	const addToCart = useSelector((state) => state.addToCart);
+	const { addToCartRes } = addToCart;
 
 	useEffect(
 		() => {
@@ -66,7 +75,8 @@ const ProductScreen = ({ history, match }) => {
 	);
 
 	const addToCartHandler = () => {
-		history.push(`/login?redirect=cart/${match.params.id}?qty=${qty}`);
+		setAdded(true);
+		dispatch(AddToCart(match.params.id,qty));
 	};
 
 	const ratingHandler = () => {
@@ -104,8 +114,9 @@ const ProductScreen = ({ history, match }) => {
 			) : error ? (
 				<Message severity='error'>{error}</Message>
 			) : (
-				<div>
+				<div style={{marginTop:20}}>{addToCartRes && added ===true ? <Message severity="success">{addToCartRes.status}</Message>: null}
 					<Grid container style={{ marginTop: 30 }}>
+			
 						<Grid item md={5} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 							<img
 								src={`data:image/jpeg;base64,${product.img}`}
@@ -147,7 +158,7 @@ const ProductScreen = ({ history, match }) => {
 								Add to cart
 							</StyledButton>
 						</Grid>
-						<Grid item md={4}>
+						{userInfo?<Grid item md={4}>
 							{reviews.map((review, index) => {
 								return (
 									<div
@@ -205,9 +216,11 @@ const ProductScreen = ({ history, match }) => {
 									</Button>
 								</form>
 							</Grid>
-						</Grid>
+						</Grid> :null}
+						
 					</Grid>
-					<Grid container style={{ marginTop: 10 }}>
+					{userInfo?<Grid container style={{ marginTop: 10 }}>
+						
 						<Grid item md={12}>
 							<h1>You may also like</h1>
 						</Grid>
@@ -247,7 +260,8 @@ const ProductScreen = ({ history, match }) => {
 								})}
 							</Slider>
 						</Grid>
-					</Grid>
+					</Grid> :null}
+					
 				</div>
 			)}
 		</div>

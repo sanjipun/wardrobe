@@ -13,8 +13,9 @@ const PlaceOrder = () => {
 	const [ houseNo, setHouseNo ] = useState();
 	const [ paid, setPaid ] = useState(false);
 
-	const cart = useSelector((state) => state.cart);
-	const { cartItems } = cart;
+	const getCartItems = useSelector((state) => state.getCartItems);
+	const { cartItems } = getCartItems;
+	console.log(cartItems);
 
 	const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
@@ -58,7 +59,8 @@ const PlaceOrder = () => {
 						Your Paypal Account was charged Rs.{' '}
 						{cartItems
 							.reduce(
-								(acc, item) => Number(acc + item.qty * item.price * 0.13 + item.qty * item.price),
+								(acc, item) =>
+									Number(acc + item.quantity * item.price * 0.13 + item.quantity * item.price),
 								0
 							)
 							.toFixed(2)}
@@ -133,22 +135,22 @@ const PlaceOrder = () => {
 									<Grid container>
 										<Grid item md={2} style={{ textAlign: 'center' }}>
 											<img
-												src={`data:image/jpeg;base64,${item.image}`}
+												src={`data:image/jpeg;base64,${item.photo}`}
 												alt={item.product}
 												style={{ height: 50, width: 'auto' }}
 											/>
 										</Grid>
 										<Grid item md={4} style={{ textAlign: 'center' }}>
-											{item.name}
+											{item.productName}
 										</Grid>
 										<Grid item md={2} style={{ textAlign: 'center' }}>
 											Rs. {item.price}
 										</Grid>
 										<Grid item md={2} style={{ textAlign: 'center' }}>
-											{item.qty}
+											{item.quantity}
 										</Grid>
 										<Grid item md={2} style={{ textAlign: 'center' }}>
-											Rs. {Number(item.qty * item.price)}
+											Rs. {Number(item.quantity * item.price)}
 										</Grid>
 									</Grid>
 								</ListItem>
@@ -161,16 +163,18 @@ const PlaceOrder = () => {
 					<List style={{ marginTop: -50 }}>
 						<ListItem style={{ display: 'block' }}>
 							<h3 style={{ textAlign: 'right' }}>
-								Total items: {cartItems.reduce((acc, item) => Number(acc + item.qty), 0)}{' '}
+								Total items: {cartItems.reduce((acc, item) => Number(acc + item.quantity), 0)}{' '}
 							</h3>
 							<h3 style={{ textAlign: 'right' }}>
 								Subtotal: Rs.{' '}
-								{cartItems.reduce((acc, item) => Number(acc + item.qty * item.price), 0).toFixed(2)}
+								{cartItems
+									.reduce((acc, item) => Number(acc + item.quantity * item.price), 0)
+									.toFixed(2)}
 							</h3>
 							<h3 style={{ textAlign: 'right' }}>
 								Tax: Rs.{' '}
 								{cartItems
-									.reduce((acc, item) => Number(acc + item.qty * item.price * 0.13), 0)
+									.reduce((acc, item) => Number(acc + item.quantity * item.price * 0.13), 0)
 									.toFixed(2)}{' '}
 							</h3>
 							<h3 style={{ textAlign: 'right' }}>
@@ -178,7 +182,9 @@ const PlaceOrder = () => {
 								{cartItems
 									.reduce(
 										(acc, item) =>
-											Number(acc + item.qty * item.price * 0.13 + item.qty * item.price),
+											Number(
+												acc + item.quantity * item.price * 0.13 + item.quantity * item.price
+											),
 										0
 									)
 									.toFixed(2)}
@@ -191,7 +197,11 @@ const PlaceOrder = () => {
 										cartItems
 											.reduce(
 												(acc, item) =>
-													Number(acc + item.qty * item.price * 0.13 + item.qty * item.price),
+													Number(
+														acc +
+															item.quantity * item.price * 0.13 +
+															item.quantity * item.price
+													),
 												0
 											)
 											.toFixed(2) / 100

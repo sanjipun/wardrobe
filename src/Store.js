@@ -1,5 +1,4 @@
 import { AdminLoginReducer, userListReducer } from './Reducers/AdminReducers';
-import { apiReducer, cartDetailsReducer, CartReducer } from './Reducers/CartReducers';
 import { ProductDetailsReducer, ProductListReducer } from './Reducers/ProductReducers';
 import { UserDetailsReducer, UserLoginReducer, UserRegisterReducer } from './Reducers/UserReducers';
 import { AddProductReducer } from './Reducers/AddProductReducer';
@@ -7,6 +6,9 @@ import { AddRatingReducer } from './Reducers/RatingReducer';
 import { AddCommentReducer } from './Reducers/AddCommentReducer';
 import { GetReviewReducer } from './Reducers/GetReviewReducer';
 import { GetRecommendationReducer } from './Reducers/RecommendationReducer';
+import { AddToCartReducer } from './Reducers/AddToCartReducer';
+import { ClearCartReducer, GetCartItemsReducer, RemoveItemFromCartReducer } from './Reducers/GetCartItemsReducer';
+import { TopFiveReducer } from './Reducers/TopFiveReducer';
 
 const { createStore, combineReducers, applyMiddleware } = require('redux');
 const { composeWithDevTools } = require('redux-devtools-extension');
@@ -18,7 +20,6 @@ const reducer = combineReducers({
 	userLogin: UserLoginReducer,
 	userRegister: UserRegisterReducer,
 	userDetails: UserDetailsReducer,
-	cart: CartReducer,
 	adminLogin: AdminLoginReducer,
 	userList: userListReducer,
 	addProduct: AddProductReducer,
@@ -26,14 +27,17 @@ const reducer = combineReducers({
 	addComment: AddCommentReducer,
 	getReview: GetReviewReducer,
 	getRecommendation: GetRecommendationReducer,
+	addToCart: AddToCartReducer,
+	getCartItems: GetCartItemsReducer,
+	removeItemFromCart: RemoveItemFromCartReducer,
+	clearCart: ClearCartReducer,
+	topFive: TopFiveReducer,
 });
 
-const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 const adminInfoFromStorage = localStorage.getItem('adminInfo') ? JSON.parse(localStorage.getItem('adminInfo')) : null;
 
 const initialState = {
-	cart: { cartItems: cartItemsFromStorage },
 	userLogin: { userInfo: userInfoFromStorage },
 	adminLogin: { adminInfo: adminInfoFromStorage },
 };

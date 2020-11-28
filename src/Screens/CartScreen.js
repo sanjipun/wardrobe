@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
-import { addToCart, removeFromCart } from '../Actions/CartActions';
+import { ClearCartAction, GetCartItemsAction, RemoveItemFromCartAction } from '../Actions/GetCartItemsAction';
 import { getRecommendations } from '../Actions/GetRecommendationAction';
 import Message from '../Components/Message';
 import './Slider.css';
@@ -11,35 +11,46 @@ import './Slider.css';
 const CartScreen = ({ match, location, history }) => {
 	const [ localDateTime, setLocalDateTime ] = useState("2020-11-17 00:00:00");
 	const [ view, setView ] = useState('VIEW');
+	const [ userid, setUserid ] = useState('1');
 
 	const productId = match.params.id;
-	const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
 	const dispatch = useDispatch();
 
-	const cart = useSelector((state) => state.cart);
-	const { cartItems } = cart;
 
 	const getRecommendation = useSelector((state) => state.getRecommendation);
 	const { recommendations } = getRecommendation;
 
+	const userLogin = useSelector((state) => state.userLogin);
+	const { userInfo } = userLogin;
+
+	const getCartItems = useSelector((state) => state.getCartItems);
+	const {cartItems} = getCartItems;
+	console.log(cartItems);
+	
 	useEffect(
 		() => {
+			dispatch(GetCartItemsAction());
 			if (productId) {
-				dispatch(addToCart(productId, qty));
-				dispatch(getRecommendations(productId, localDateTime, view));	
+				dispatch(getRecommendations(productId, localDateTime, view));					
 			}
 		},
-		[ dispatch, productId, qty ]
+		[ dispatch, productId,localDateTime,view ]
 	);
 
 	const checkoutHandler = () => {
 		console.log('checkout');
 		history.push('/login?redirect=placeorder');
 	};
-	const removeHandler = (id) => {
-		dispatch(removeFromCart(id));
+	const removeHandler = (cartid) => {
+		dispatch(RemoveItemFromCartAction(cartid,userid));
+		dispatch(GetCartItemsAction());
 	};
+
+	const clearCartHandler = () => {
+		dispatch(ClearCartAction());
+		dispatch(GetCartItemsAction());
+	}
 	const settings = {
 		dots: true,
 		className: 'center',
@@ -84,63 +95,80 @@ const CartScreen = ({ match, location, history }) => {
 									<h3>Remove</h3>
 								</Grid>
 							</Grid>
-							<List>
-								{cartItems.map((item) => (
-									<ListItem key={item.id}>
-										<Grid container>
+							
+								{cartItems.map((item,index) => (
+									
+										<Grid container key={index}>
 											<Grid item md={2} style={{ textAlign: 'center' }}>
 												<img
-													src={`data:image/jpeg;base64,${item.image}`}
+													src={`data:image/jpeg;base64,${item.photo}`}
 													alt={item.product}
 													style={{ height: 50, width: 'auto' }}
 												/>
 											</Grid>
 											<Grid item md={4} style={{ textAlign: 'center' }}>
-												{item.name}
+												{item.productName}
 											</Grid>
 											<Grid item md={2} style={{ textAlign: 'center' }}>
 												Rs. {item.price}
 											</Grid>
 											<Grid item md={2} style={{ textAlign: 'center' }}>
-												{item.qty}
+											  {item.quantity}										
 											</Grid>
 											<Grid item md={2} style={{ textAlign: 'center' }}>
 												<Button
 													variant='contained'
 													color='secondary'
-													onClick={() => removeHandler(item.product)}
+													disableElevation
+													onClick={() => removeHandler(item.cartid)}
 												>
 													<i className='fas fa-trash' />
 												</Button>
 											</Grid>
 										</Grid>
-									</ListItem>
+									
 								))}
-							</List>
+							
 						</Grid>
 						<Grid item md={4}>
 							<List style={{ marginTop: -50 }}>
 								<ListItem style={{ display: 'block' }}>
 									<h3 style={{ textAlign: 'right' }}>
-										Subtotal ({cartItems.reduce((acc, item) => Number(acc + item.qty), 0)}) items
+										Subtotal ({cartItems.reduce((acc, item) => Number(acc + item.quantity), 0)}) items
 									</h3>
 									<h3 style={{ textAlign: 'right' }}>
 										Subtotal: Rs.{' '}
 										{cartItems
-											.reduce((acc, item) => Number(acc + item.qty * item.price), 0)
+											.reduce((acc, item) => Number(acc + item.quantity * item.price), 0)
 											.toFixed(2)}
 									</h3>
 									<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+										
 										<Button
 											disableElevation
 											variant='contained'
 											color='primary'
+											disableElevation
 											onClick={checkoutHandler}
-											style={{ textAlign: 'end', padding: '20px' }}
+											style={{ textAlign: 'end', padding: '10px' }}
 										>
 											Proceed to Checkout
 										</Button>
+										
+										
 									</div>
+									<div style={{display:'flex', justifyContent:'flex-end'}}>
+									<Button
+											disableElevation
+											variant='contained'
+											color='secondary'
+											disableElevation
+											onClick={clearCartHandler}
+											style={{ textAlign: 'end', padding: '10px', marginTop:10 }}
+										>
+											Clear Cart
+										</Button>
+										</div>
 								</ListItem>
 							</List>
 						</Grid>

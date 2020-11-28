@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { adminLogout } from '../Actions/AdminActions';
 import { logout } from '../Actions/UserActions';
 import NavItems from '../Files/NavItems';
-import SearchBox from './SearchBox';
+import './Header.scss';
 
 const StyledHeader = styled.header`
 	display: flex;
@@ -84,14 +84,43 @@ const Header = ({ history }) => {
 					<Ul>
 						{NavItems.map((NavItem, index) => {
 							return (
-								<Link key={index} to={NavItem.link} style={{ textDecoration: 'none', color: 'white' }}>
-									<Li key={index}>
-										<i className={NavItem.icon} />
-										<p style={{ paddingLeft: 5 }}>{NavItem.title}</p>
-									</Li>
-								</Link>
+								<div>
+									<Link
+										key={index}
+										to={NavItem.link}
+										style={{ textDecoration: 'none', color: 'white' }}
+									>
+										<Li key={index}>
+											<i className={NavItem.icon} />
+											<p style={{ paddingLeft: 5 }}>{NavItem.title}</p>
+										</Li>
+									</Link>
+								</div>
 							);
 						})}
+						<Li className='menu'>
+							<i className='fas fa-bars' />
+							<p style={{ paddingLeft: 5 }}>Category</p>
+							<ul>
+								<li class='link'>
+									<a href=''>Im a link</a>
+								</li>
+								<li class='link'>
+									<a href=''>Im a link</a>
+								</li>
+								<li>
+									Nested dropdown
+									<ul>
+										<li class='link'>
+											<a href=''>Im a link</a>
+										</li>
+										<li class='link'>
+											<a href=''>Im a link</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</Li>
 					</Ul>
 				</div>
 				<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} />
