@@ -11,13 +11,13 @@ import Product from '../Components/Product';
 
 const HomeScreen = () => {
 	const dispatch = useDispatch();
+
 	const productList = useSelector((state) => state.productList);
 	const { loading, products, error } = productList;
 
 	const topFive = useSelector((state) => state.topFive);
 	const { loading: fiveLoading, five, error: fiveError } = topFive;
 
-	console.log(five);
 
 	useEffect(
 		() => {
@@ -40,10 +40,11 @@ const HomeScreen = () => {
 	};
 
 	return (
-		<div>
-			{fiveLoading && <Loader />}
-	{fiveError && <Message severity="error">Something went wrong</Message>}
+		<div style={{marginTop:100}}>
 			<h1 style={{ textAlign: 'center' }}>Top products</h1>
+			{fiveLoading && <Loader />}
+			{fiveError && <Message severity="error">Something went wrong</Message>}
+			
 			<Slider {...settings}>
 				{five?.map((each, index) => {
 					return (

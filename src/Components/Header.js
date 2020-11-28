@@ -10,10 +10,14 @@ import './Header.scss';
 
 const StyledHeader = styled.header`
 	display: flex;
+	position: fixed;
+	z-index: 99;
+	top: 0;
+	width: 100%;
 	align-items: center;
 	justify-content: center;
 	background-color: #212121;
-	height: 12vh;
+	height: 80px;
 	font-family: 'Poppins';
 `;
 const StyledOuterDiv = styled.div`
@@ -48,6 +52,13 @@ const Li = styled.li`
 `;
 
 const Header = ({ history }) => {
+	const [ kids, setKids ] = useState('kids');
+	const [ men, setMen ] = useState('men');
+	const [ women, setWomen ] = useState('women');
+	const [ dress, setDress ] = useState('dress');
+	const [ traditional, setTraditional ] = useState('traditional');
+	const [ upper, setUpper ] = useState('upper');
+
 	const [ anchorEl, setAnchorEl ] = useState(null);
 
 	const handleClick = (event) => {
@@ -84,7 +95,7 @@ const Header = ({ history }) => {
 					<Ul>
 						{NavItems.map((NavItem, index) => {
 							return (
-								<div>
+								<div key={index}>
 									<Link
 										key={index}
 										to={NavItem.link}
@@ -98,7 +109,7 @@ const Header = ({ history }) => {
 								</div>
 							);
 						})}
-						<Li className='menu'>
+						{/*<Li className='menu'>
 							<i className='fas fa-bars' />
 							<p style={{ paddingLeft: 5 }}>Category</p>
 							<ul>
@@ -120,7 +131,69 @@ const Header = ({ history }) => {
 									</ul>
 								</li>
 							</ul>
-						</Li>
+						</Li>*/}
+						<div className='menu'>
+							<ul>
+								<li>
+									<i className='fas fa-bars' style={{ paddingRight: 5 }} />
+									Categories
+									<ul>
+										<li>
+											<Link to={`/filter/${kids}`}>Kids</Link>
+
+											<i className='fas fa-angle-right' style={{ paddingLeft: 50 }} />
+											<ul>
+												<li className='link'>
+													<Link to={`/filter/${kids}?subCategory=${dress}`}>Dress</Link>
+												</li>
+												<li className='link'>
+													<Link to={`/filter/${kids}?subCategory=${traditional}`}>
+														Traditional
+													</Link>
+												</li>
+												<li className='link'>
+													<Link to={`/filter/${kids}?subCategory=${upper}`}>Upper</Link>
+												</li>
+											</ul>
+										</li>
+										<li>
+											<Link to={`/filter/${men}`}>Men</Link>
+											<i className='fas fa-angle-right' style={{ paddingLeft: 50 }} />
+											<ul>
+												<li className='link'>
+													<Link to={`/filter/${men}?subCategory=${dress}`}> Dress</Link>
+												</li>
+												<li className='link'>
+													<Link to={`/filter/${men}?subCategory=${traditional}`}>
+														Traditional
+													</Link>
+												</li>
+												<li className='link'>
+													<Link to={`/filter/${men}?subCategory=${upper}`}> Upper</Link>
+												</li>
+											</ul>
+										</li>
+										<li>
+											<Link to={`/filter/${women}`}>Women</Link>
+											<i className='fas fa-angle-right' style={{ paddingLeft: 20 }} />
+											<ul>
+												<li className='link'>
+													<Link to={`/filter/${women}?subCategory=${dress}`}> Dress</Link>
+												</li>
+												<li className='link'>
+													<Link to={`/filter/${women}?subCategory=${traditional}`}>
+														Traditional
+													</Link>
+												</li>
+												<li className='link'>
+													<Link to={`/filter/${women}?subCategory=${upper}`}> Upper</Link>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
 					</Ul>
 				</div>
 				<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} />

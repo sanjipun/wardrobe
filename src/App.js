@@ -35,7 +35,7 @@ function App() {
 					<Route path='/userlist' component={UserList} />
 					<Route path='/productlist' component={ProductList} />
 					<Route path='/addproduct' component={AddProduct} />
-					<Route path='/filter/:category?:subcategory' component={FilterScreen} />
+					<Route path='/filter/:category?' component={FilterScreen} />
 				</StylesProvider>
 			</div>
 			<Footer />

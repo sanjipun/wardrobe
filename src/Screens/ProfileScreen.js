@@ -49,7 +49,7 @@ const ProfileScreen = ({ history, location }) => {
 	);
 	console.log(user.userName);
 	return (
-		<div>
+		<div style={{ marginTop: 100 }}>
 			{loading && <Loader />}
 			{error && <Message severity='error'>{error}</Message>}
 			<Grid container style={{ marginTop: -70 }}>

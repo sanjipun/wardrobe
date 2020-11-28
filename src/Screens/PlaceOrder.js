@@ -43,7 +43,7 @@ const PlaceOrder = () => {
 	console.log(sdkReady);
 
 	return (
-		<div>
+		<div style={{ marginTop: 100 }}>
 			<Button variant='outlined' disableElevation style={{ marginTop: 20 }}>
 				<Link to='/cart' style={{ textDecoration: 'none', color: 'black' }}>
 					Back to Cart

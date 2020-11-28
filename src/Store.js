@@ -9,6 +9,7 @@ import { GetRecommendationReducer } from './Reducers/RecommendationReducer';
 import { AddToCartReducer } from './Reducers/AddToCartReducer';
 import { ClearCartReducer, GetCartItemsReducer, RemoveItemFromCartReducer } from './Reducers/GetCartItemsReducer';
 import { TopFiveReducer } from './Reducers/TopFiveReducer';
+import { CategoryReducer } from './Reducers/CategoryReducer';
 
 const { createStore, combineReducers, applyMiddleware } = require('redux');
 const { composeWithDevTools } = require('redux-devtools-extension');
@@ -32,6 +33,7 @@ const reducer = combineReducers({
 	removeItemFromCart: RemoveItemFromCartReducer,
 	clearCart: ClearCartReducer,
 	topFive: TopFiveReducer,
+	getCategory: CategoryReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;

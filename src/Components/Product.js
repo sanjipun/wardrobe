@@ -71,7 +71,7 @@ const Product = ({ product }) => {
 							margin: 'auto ',
 						}}
 					>
-						<Rating value={product.rating.rating} />
+						<Rating value={product?.rating?.rating} />
 					</div>
 				</Link>
 			</Card>

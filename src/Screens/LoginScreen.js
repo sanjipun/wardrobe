@@ -49,7 +49,7 @@ const LoginScreen = ({ history, location }) => {
 		dispatch(Login(userName, password));
 	};
 	return (
-		<div>
+		<div style={{ marginTop: 100 }}>
 			<h1 style={{ textAlign: 'center' }}>Sign In</h1>
 
 			{loading && <Loader />}

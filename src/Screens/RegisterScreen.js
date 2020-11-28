@@ -56,7 +56,7 @@ const RegisterScreen = ({ history, location }) => {
 	};
 	return (
 		<div>
-			<h1 style={{ textAlign: 'center' }}>Sign Up</h1>
+			<h1 style={{ textAlign: 'center', marginTop: 100 }}>Sign Up</h1>
 
 			<Container component='main' maxWidth='xs' style={{ marginTop: -70 }}>
 				<div className={classes.paper}>

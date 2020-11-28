@@ -25,7 +25,7 @@ const AdminDashboard = () => {
 	const { adminInfo } = adminLogin;
 
 	return (
-		<div style={{ marginTop: 20 }}>
+		<div style={{ marginTop: 100 }}>
 			{adminInfo ? (
 				<Grid container>
 					<Grid item md={4} style={{ padding: 20 }}>

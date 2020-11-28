@@ -49,7 +49,7 @@ const AdminScreen = ({ history, location }) => {
 	};
 	return (
 		<div>
-			<h1 style={{ textAlign: 'center' }}>Sign In as Admin</h1>
+			<h1 style={{ textAlign: 'center', marginTop: 100 }}>Sign In as Admin</h1>
 
 			{loading && <Loader />}
 			<Container component='main' maxWidth='xs' style={{ marginTop: -70 }}>

@@ -97,7 +97,7 @@ const ProductScreen = ({ history, match }) => {
 		},
 	};
 	return (
-		<div style={{ marginTop: 10 }}>
+		<div style={{ marginTop: 100 }}>
 			<Link
 				to='/'
 				style={{

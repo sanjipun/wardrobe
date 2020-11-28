@@ -64,7 +64,7 @@ const CartScreen = ({ match, location, history }) => {
 		},
 	};
 	return (
-		<div style={{ marginTop: 20 }}>
+		<div style={{ marginTop: 100 }}>
 			<Button variant='outlined' color='primary'>
 				{' '}
 				<Link to='/' style={{ textDecoration: 'none', color: 'black' }}>

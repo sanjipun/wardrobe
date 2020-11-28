@@ -1,24 +1,16 @@
 .menu {
-    // define the height of the menu
-    --menu-height: 40px;
-    // holder and ul general style
-    box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
+ z-index: 999;
     ul {
       list-style: none;
-      padding: 16px;
+      padding: 10px;
       margin: 0;
       li, li a {
-        opacity: .8;
+        opacity: 1;
         color: #ffffff;      
         cursor: pointer;
         transition: 200ms;
         text-decoration: none;
         white-space: nowrap;
-        font-weight: 700;
         &:hover {
           opacity: 1;
         }
@@ -29,23 +21,7 @@
           width: 100%;      
         }      
       }
-      // lets put an arrow down 
-      // to the li`s with dropdown
-      li {
-        padding-right: 36px;
-        &::before {
-          content: '';
-          width: 0; 
-          height: 0; 
-          border-left: 5px solid transparent;
-          border-right: 5px solid transparent;
-          border-top: 5px solid #FFA500;
-          position: absolute;
-          right: 8px;
-          top: 50%;
-          transform: translateY(-50%);
-        }
-      }
+     
       .link {
         // links dont need arrow
         &::before {
@@ -61,7 +37,7 @@
       display: flex;
       height: var(--menu-height);
       align-items: center;
-      background-color: #000000;
+      background-color: #212121;
       // the first ul elements can be a
       // link or an li with a nested ul. 
       // the nested ul will be a dropdown
@@ -73,10 +49,9 @@
           visibility: hidden;
           opacity: 0;        
           padding: 0;
-          min-width: 160px;
-          background-color: #333;
+          min-width: 120px;
+          background-color: #212121;
           position: absolute;
-          top: calc(var(--menu-height) + 5px);
           left: 50%;
           transform: translateX(-50%);
           transition: 200ms;
@@ -124,3 +99,7 @@
       }
     }
   }
+
+
+
+  
