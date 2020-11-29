@@ -8,6 +8,7 @@ import Message from '../Components/Message';
 import Product from '../Components/Product';
 
 const FilterScreen = ({ match, location }) => {
+	
 	console.log(match.params.category);
 	const subCategory = location.search.split('=')[1];
 	console.log(subCategory);
