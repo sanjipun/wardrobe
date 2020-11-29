@@ -8,6 +8,7 @@ import { logout } from '../Actions/UserActions';
 import NavItems from '../Files/NavItems';
 import './Header.scss';
 import { withRouter } from 'react-router';
+import img1 from './logo.png';
 
 const StyledHeader = styled.header`
 	display: flex;
@@ -94,8 +95,17 @@ const Header = ({ history }) => {
 		<StyledHeader>
 			<StyledOuterDiv>
 				<div style={{ color: 'white', cursor: 'pointer', marginTop: '-3vh' }}>
-					<Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
-						The Wardrobe
+					<Link
+						to='/'
+						style={{
+							textDecoration: 'none',
+							color: 'white',
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+						}}
+					>
+						<img src={img1} style={{ height: '30px', width: 'auto' }} />
 					</Link>
 				</div>
 				<div>
