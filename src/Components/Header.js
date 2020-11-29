@@ -7,6 +7,7 @@ import { adminLogout } from '../Actions/AdminActions';
 import { logout } from '../Actions/UserActions';
 import NavItems from '../Files/NavItems';
 import './Header.scss';
+import { withRouter } from 'react-router';
 
 const StyledHeader = styled.header`
 	display: flex;
@@ -54,6 +55,7 @@ const Li = styled.li`
 const Header = ({ history }) => {
 	const [ kids, setKids ] = useState('kids');
 	const [ men, setMen ] = useState('men');
+	const [ search, setSearch ] = useState('Search..');
 	const [ women, setWomen ] = useState('women');
 	const [ dress, setDress ] = useState('dress');
 	const [ traditional, setTraditional ] = useState('traditional');
@@ -83,6 +85,11 @@ const Header = ({ history }) => {
 		dispatch(adminLogout());
 	};
 
+	const changeHandler = (e) => {
+		history.push(`/search/${e.target.value}?keyword=${e.target.value}`);
+		setSearch(e.target.value);
+	};
+	console.log(search);
 	return (
 		<StyledHeader>
 			<StyledOuterDiv>
@@ -196,7 +203,17 @@ const Header = ({ history }) => {
 						</div>
 					</Ul>
 				</div>
-				<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} />
+				<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: -15 }}>
+					<input
+						type='text'
+						id='search'
+						name='search'
+						label='Search'
+						value={search}
+						onChange={changeHandler}
+						style={{ height: 30, width: 250 }}
+					/>
+				</div>
 				<div>
 					<Ul>
 						{adminInfo ? null : (
@@ -281,4 +298,4 @@ const Header = ({ history }) => {
 	);
 };
 
-export default Header;
+export default withRouter(Header);

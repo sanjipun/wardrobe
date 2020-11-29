@@ -15,6 +15,7 @@ import UserList from './Screens/UserList';
 import ProductList from './Screens/ProductList';
 import AddProduct from './Screens/AddProduct';
 import FilterScreen from './Screens/FilterScreen';
+import SearchScreen from './Screens/SearchScreen';
 
 function App() {
 	return (
@@ -23,7 +24,7 @@ function App() {
 			<div className='App' style={{ fontFamily: 'Poppins', width: '80%', margin: 'auto' }}>
 				<StylesProvider injectFirst>
 					<Route path='/' exact component={HomeScreen} />
-					<Route path='/search/:keyword' component={HomeScreen} />
+					<Route path='/search/:keyword?' exact component={SearchScreen} />
 					<Route path='/product/:id' component={ProductScreen} />
 					<Route path='/cart/:id?' component={CartScreen} />
 					<Route path='/login' component={LoginScreen} />
