@@ -57,7 +57,7 @@ const HomeScreen = ({history}) => {
 			{fiveError && <Message severity="error">Something went wrong!</Message>}
 			<div style={{border:'1px solid black'}}>
 			<Slider {...settings}>
-				{five?.map((each, index) => {
+				{five?.map((each, index) => {  
 					return (
 						<div key={index}>
 							<div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>

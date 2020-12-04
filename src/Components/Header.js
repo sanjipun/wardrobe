@@ -56,7 +56,7 @@ const Li = styled.li`
 const Header = ({ history }) => {
 	const [ kids, setKids ] = useState('kids');
 	const [ men, setMen ] = useState('men');
-	const [ search, setSearch ] = useState('Search..');
+	const [ search, setSearch ] = useState('');
 	const [ women, setWomen ] = useState('women');
 	const [ dress, setDress ] = useState('dress');
 	const [ traditional, setTraditional ] = useState('traditional');
@@ -221,7 +221,7 @@ const Header = ({ history }) => {
 						label='Search'
 						value={search}
 						onChange={changeHandler}
-						style={{ height: 30, width: 250 }}
+						style={{ height: 30, width: 220 }}
 					/>
 				</div>
 				<div>

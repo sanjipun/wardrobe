@@ -1,5 +1,4 @@
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
-import { SettingsSystemDaydreamRounded } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -40,6 +39,7 @@ const ProductScreen = ({ history, match }) => {
 	const [ comment, setComment ] = useState('Enter comment');
 	const [ localDateTime, setLocalDateTime ] = useState("2020-11-17 00:00:00");
 	const [ view, setView ] = useState('VIEW');
+	const [fetch,setFetch]= useState(false);
 
 	const dispatch = useDispatch();
 
@@ -71,17 +71,24 @@ const ProductScreen = ({ history, match }) => {
 			dispatch(getReviews(match.params.id));
 			dispatch(getRecommendations(match.params.id, localDateTime, view));			
 		},
-		[ dispatch, match, localDateTime,view ]
+		[ dispatch, match, localDateTime,view,fetch ]
 	);
 
 	const addToCartHandler = () => {
+		if(userInfo){
 		setAdded(true);
 		dispatch(AddToCart(match.params.id,qty));
+		}else{
+			return(
+				alert('Login Required to perform this action.')
+			)
+		}
 	};
 
 	const ratingHandler = () => {
 		dispatch(AddRatingAction(rating, match.params.id));
 		dispatch(AddCommentAction(match.params.id, comment));
+		setFetch(!fetch);
 	};
 
 	const settings = {

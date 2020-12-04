@@ -18,14 +18,15 @@ const SearchScreen = ({ location }) => {
 
 	useEffect(
 		() => {
-			dispatch(listProducts());
+			dispatch(listProducts());		
 			setFilteredProducts(
-				products.filter((product) => {
+				products.filter((product) => {					
 					return product.name.toLowerCase().includes(keyword.toLowerCase());
 				})
 			);
+			
 		},
-		[ dispatch, keyword,products ]
+		[ dispatch, keyword, products, fetch ]
 	);
 
 	return (

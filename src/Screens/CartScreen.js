@@ -1,4 +1,4 @@
-import { Button, FormControl, Grid, InputLabel, List, ListItem, MenuItem, Select } from '@material-ui/core';
+import { Button,  Grid, List, ListItem } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -9,9 +9,10 @@ import Message from '../Components/Message';
 import './Slider.css';
 
 const CartScreen = ({ match, location, history }) => {
-	const [ localDateTime, setLocalDateTime ] = useState("2020-11-17 00:00:00");
-	const [ view, setView ] = useState('VIEW');
-	const [ userid, setUserid ] = useState('1');
+	const [ localDateTime] = useState("2020-11-17 00:00:00");
+	const [ view] = useState('VIEW');
+	const [ userid ] = useState('1');
+	const [ refetch, setRefetch ] = useState(false);
 
 	const productId = match.params.id;
 
@@ -26,16 +27,17 @@ const CartScreen = ({ match, location, history }) => {
 
 	const getCartItems = useSelector((state) => state.getCartItems);
 	const {cartItems} = getCartItems;
-	console.log(cartItems);
 	
 	useEffect(
 		() => {
+
 			dispatch(GetCartItemsAction());
 			if (productId) {
 				dispatch(getRecommendations(productId, localDateTime, view));					
 			}
+			
 		},
-		[ dispatch, productId,localDateTime,view ]
+		[ dispatch, productId,localDateTime,view,refetch]
 	);
 
 	const checkoutHandler = () => {
@@ -44,12 +46,12 @@ const CartScreen = ({ match, location, history }) => {
 	};
 	const removeHandler = (cartid) => {
 		dispatch(RemoveItemFromCartAction(cartid,userid));
-		dispatch(GetCartItemsAction());
+		setRefetch(!refetch);
 	};
 
-	const clearCartHandler = () => {
-		dispatch(ClearCartAction());
-		dispatch(GetCartItemsAction());
+	const clearCartHandler = () => {	
+		dispatch(ClearCartAction());	
+		setRefetch(!refetch);	
 	}
 	const settings = {
 		dots: true,
@@ -148,7 +150,7 @@ const CartScreen = ({ match, location, history }) => {
 											disableElevation
 											variant='contained'
 											color='primary'
-											disableElevation
+											
 											onClick={checkoutHandler}
 											style={{ textAlign: 'end', padding: '10px' }}
 										>
@@ -162,7 +164,7 @@ const CartScreen = ({ match, location, history }) => {
 											disableElevation
 											variant='contained'
 											color='secondary'
-											disableElevation
+										
 											onClick={clearCartHandler}
 											style={{ textAlign: 'end', padding: '10px', marginTop:10 }}
 										>
