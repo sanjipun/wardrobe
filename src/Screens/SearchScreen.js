@@ -8,7 +8,6 @@ import Product from '../Components/Product';
 
 const SearchScreen = ({ location }) => {
 	const dispatch = useDispatch();
-	const [ filteredProducts, setFilteredProducts ] = useState();
 
 	const keyword = location.search.split('=')[1];
 	console.log(keyword);
@@ -18,16 +17,13 @@ const SearchScreen = ({ location }) => {
 
 	useEffect(
 		() => {
-			dispatch(listProducts());		
-			setFilteredProducts(
-				products.filter((product) => {					
-					return product.name.toLowerCase().includes(keyword.toLowerCase());
-				})
-			);
-			
+			dispatch(listProducts());				
 		},
-		[ dispatch, keyword, products, fetch ]
+		[ dispatch, keyword]
 	);
+		const filteredProducts = products.filter((product) => {					
+			return( product.name.toLowerCase().includes(keyword.toLowerCase()));
+		})
 
 	return (
 		<div style={{ marginTop: 100 }}>
