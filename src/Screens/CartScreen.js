@@ -74,7 +74,7 @@ const CartScreen = ({ match, location, history }) => {
 				</Link>{' '}
 			</Button>
 			<h2>Shopping Cart</h2>
-			{cartItems.length === 0 ? (
+			{userInfo?cartItems.length === 0 ? (
 				<Message severity='error'>Your cart is empty.</Message>
 			) : (
 				<div style={{ marginTop: -20 }}>
@@ -213,7 +213,8 @@ const CartScreen = ({ match, location, history }) => {
 							</Slider>
 						</Grid>
 				</div>
-			)}
+			) : <Message severity="info">Please Log In</Message>}
+			
 		</div>
 	);
 };
