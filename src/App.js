@@ -16,7 +16,8 @@ import ProductList from './Screens/ProductList';
 import AddProduct from './Screens/AddProduct';
 import FilterScreen from './Screens/FilterScreen';
 import SearchScreen from './Screens/SearchScreen';
-
+import AboutUs from './Screens/AboutUs';
+import './App.css';
 function App() {
 	return (
 		<BrowserRouter>
@@ -28,6 +29,7 @@ function App() {
 					<Route path='/product/:id' component={ProductScreen} />
 					<Route path='/cart/:id?' component={CartScreen} />
 					<Route path='/login' component={LoginScreen} />
+					<Route path='/about' component={AboutUs} />
 					<Route path='/admin' component={AdminLogin} />
 					<Route path='/register' component={RegisterScreen} />
 					<Route path='/profile' component={ProfileScreen} />

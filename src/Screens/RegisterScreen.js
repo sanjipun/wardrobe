@@ -123,7 +123,7 @@ const RegisterScreen = ({ history, location }) => {
 							required
 							fullWidth
 							id='phone'
-							label='phone'
+							label='Phone'
 							name='phone'
 							autoComplete='phone'
 							value={phone}
@@ -136,7 +136,7 @@ const RegisterScreen = ({ history, location }) => {
 							required
 							fullWidth
 							id='gender'
-							label='gender'
+							label='Gender'
 							name='gender'
 							autoComplete='gender'
 							value={gender}

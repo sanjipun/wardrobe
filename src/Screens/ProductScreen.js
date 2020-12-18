@@ -39,7 +39,6 @@ const ProductScreen = ({ history, match }) => {
 	const [ comment, setComment ] = useState('Enter comment');
 	const [ localDateTime, setLocalDateTime ] = useState("2020-11-17 00:00:00");
 	const [ view, setView ] = useState('VIEW');
-	const [fetch,setFetch]= useState(false);
 
 	const dispatch = useDispatch();
 
@@ -48,6 +47,8 @@ const ProductScreen = ({ history, match }) => {
 
 	const getReview = useSelector((state) => state.getReview);
 	const { reviews } = getReview;
+
+	console.log(reviews);
 
 	const getRecommendation = useSelector((state) => state.getRecommendation);
 	const { recommendations } = getRecommendation;
@@ -71,7 +72,7 @@ const ProductScreen = ({ history, match }) => {
 			dispatch(getReviews(match.params.id));
 			dispatch(getRecommendations(match.params.id, localDateTime, view));			
 		},
-		[ dispatch, match, localDateTime,view,fetch ]
+		[ dispatch, match, localDateTime,view ]
 	);
 
 	const addToCartHandler = () => {
@@ -85,12 +86,11 @@ const ProductScreen = ({ history, match }) => {
 		}
 	};
 
-	const ratingHandler = () => {
+	const ratingHandler = (e) => {
+		e.preventDefault();
 		dispatch(AddRatingAction(rating, match.params.id));
 		dispatch(AddCommentAction(match.params.id, comment));
-		setFetch(!fetch);
 	};
-
 	const settings = {
 		dots: true,
 		className: 'center',
@@ -124,14 +124,14 @@ const ProductScreen = ({ history, match }) => {
 				<div style={{marginTop:20}}>{addToCartRes && added ===true ? <Message severity="success">{addToCartRes.status}</Message>: null}
 					<Grid container style={{ marginTop: 30 }}>
 			
-						<Grid item md={5} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+						<Grid item md={5} style={{backgroundColor:"white", display: 'flex', justifyContent: 'center', alignItems: 'center',borderShadow:"0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)" }}>
 							<img
 								src={`data:image/jpeg;base64,${product.img}`}
 								alt={product.name}
 								style={{ height: '300px', width: 'auto' }}
 							/>
 						</Grid>
-						<Grid item md={3} style={{ lineHeight: 1 }}>
+						<Grid item md={3} style={{ lineHeight: 1, padding:"0px 20px" }}>
 							<h2>{product.name}</h2>
 							<div style={{ width: '100%', border: '1px solid black' }} />
 							<h3>Stock: {product.quantity}</h3>
@@ -223,7 +223,7 @@ const ProductScreen = ({ history, match }) => {
 									</Button>
 								</form>
 							</Grid>
-						</Grid> :null}
+						</Grid> :<Message severity="info" style={{width:"100%"}}>Please Login to see the reviews.</Message>}
 						
 					</Grid>
 					{userInfo?<Grid container style={{ marginTop: 10 }}>

@@ -45,7 +45,7 @@ const HomeScreen = ({history}) => {
 
 	const indexOfLastProduct = currentPage * productsPerPage;
 	const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-	const currentProducts = products.slice(indexOfFirstProduct,indexOfLastProduct);
+	const currentProducts = products?.slice(indexOfFirstProduct,indexOfLastProduct);
 
 	const paginate = (pageNumber) => {
 		setCurrentPage(pageNumber);
@@ -55,8 +55,8 @@ const HomeScreen = ({history}) => {
 			<h1 style={{ textAlign: 'center' }}>Top products</h1>
 			{fiveLoading && <Loader />}
 			{fiveError && <Message severity="error">Something went wrong!</Message>}
-			<div style={{border:'1px solid black'}}>
-			<Slider {...settings}>
+			<div style={{backgroundColor:'white',boxShadow:"0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)"}}>
+				{five? <Slider {...settings}>
 				{five?.map((each, index) => {  
 					return (
 						<div key={index}>
@@ -78,7 +78,8 @@ const HomeScreen = ({history}) => {
 					);
 				})}
 				<div />
-			</Slider>
+			</Slider>:""}
+			
 			</div>
 
 			<h1 style={{ textAlign: 'left' }}>Latest Products</h1>

@@ -15,9 +15,10 @@ export const AddCommentAction = (productId, postComment) => async (dispatch, get
 				Authorization: `Bearer ${userInfo.accessToken}`,
 			},
 		};
-
+		console.log(postComment);
+		console.log(productId);
 		const { data } = await Axios.post('/v1/api/comment/addComment', { productId, postComment }, config);
-
+		console.log(data);
 		dispatch({
 			type: ADD_COMMENT_SUCCESS,
 			payload: data,
@@ -27,5 +28,6 @@ export const AddCommentAction = (productId, postComment) => async (dispatch, get
 			type: ADD_COMMENT_FAIL,
 			payload: error.response && error.response.data.message ? error.response.data.message : error.message,
 		});
+		console.log(error);
 	}
 };
